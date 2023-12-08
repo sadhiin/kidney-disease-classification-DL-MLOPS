@@ -12,7 +12,6 @@ tqdm
 joblib
 Flask
 Flask-Cors
-# gunicorn
-# gdown
+gdown
 
 -e .
