@@ -15,4 +15,6 @@ joblib
 Flask
 Flask-Cors
 gdown
+python-box
+ensure
 -e .
