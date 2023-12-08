@@ -2,16 +2,17 @@ dvc
 pandas
 mlflow==2.7.1
 notebook
+tensorflow
 numpy
 matplotlib
 scikit-learn==1.3.1
 scipy==1.11.2
 seaborn==0.12.2
-opencv-python==4.8.1.78
+opencv-python
 tqdm
+pyYAML
 joblib
 Flask
 Flask-Cors
 gdown
-
 -e .
