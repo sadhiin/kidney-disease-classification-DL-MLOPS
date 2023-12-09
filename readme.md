@@ -1,10 +1,10 @@
-# Kindy Disease Classification
-
+# Kidney Tumor and Stone Classification
+![](https://storage.googleapis.com/kaggle-datasets-images/1686903/2764486/74acd8a7225545d03cd69cd77b1b4e25/dataset-cover.png?t=2021-11-23-19-42-06)
 ## Introduction
-Kindy Disease Classification is a cutting-edge project utilizing deep learning techniques to classify various kinds of diseases from medical images. This project leverages the power of Machine Learning Operations (MLOps) practices, Data Version Control (DVC), and integrates with DagsHub for collaboration and versioning.
+Kidney Disease Classification is a project utilizing deep learning techniques to classify Kidney Tumor and Stone diseases from medical images. This project leverages the power of Deep Learning, Machine Learning Operations (MLOps) practices, Data Version Control (DVC), and integrates with DagsHub for collaboration and versioning.
 
 ## Project Overview
-The main goal of this project is to develop a reliable and efficient deep learning model that can accurately classify diseases from medical images. This could include, but is not limited to, identifying different stages of cancer, detecting anomalies in X-rays, or diagnosing skin diseases through dermatological imaging.
+The main goal of this project is to develop a reliable and efficient deep learning model that can accurately classify kidney Tumor and Stone from medical images. This could include, but is not limited to, identifying different stages of cancer, detecting anomalies in X-rays, or diagnosing skin diseases through dermatological imaging.
 
 ## Importance of the Project
 - **Enhancing Healthcare**: By providing accurate and quick disease classification, this project aims to significantly improve patient care and diagnostic accuracy.
@@ -25,20 +25,19 @@ The main goal of this project is to develop a reliable and efficient deep learni
 4. **Pull Request**: Submit a pull request for your changes to be reviewed and merged into the main project.
 
 ## Getting Started
-To get started with the Kindy Disease Classification project, clone the repository, install dependencies, and follow the setup guide provided in the `docs` folder.
+To get started with the Kidney Disease Classification project, clone the repository, install dependencies, and follow the setup guide provided in the `docs` folder.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
 
 ## Acknowledgements
-- Special thanks to all contributors and maintainers.
-- Supported by [Institution/Company Name] for research and development resources.
+- 
 
 ## Contact
-For any inquiries or contributions, please contact [Project Maintainer's Email].
+For any inquiries or contributions, please contact [Project Maintainer's Email](mail to:sadhin.aiub.cse@gmail.com).
 
 ---
 
 This project is still in development, and we welcome contributions of all kinds: from model development and data processing to documentation and bug fixes.
 
-**Join us in this exciting journey to revolutionize the field of medical image classification with AI!**
+**Join me in this exciting journey to revolutionize the field of medical image classification with AI!**
