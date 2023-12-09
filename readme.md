@@ -1,7 +1,7 @@
 # Kidney Tumor and Stone Classification
 ![](https://storage.googleapis.com/kaggle-datasets-images/1686903/2764486/74acd8a7225545d03cd69cd77b1b4e25/dataset-cover.png?t=2021-11-23-19-42-06)
 ## Introduction
-Kidney Disease Classification is a project utilizing deep learning techniques to classify Kidney Tumor and Stone diseases from medical images. This project leverages the power of Deep Learning, Machine Learning Operations (MLOps) practices, Data Version Control (DVC), and integrates with DagsHub for collaboration and versioning.
+Kidney Disease Classification is a project utilizing deep learning techniques to classify Kidney Tumor and Stone diseases from [medical images dataset](https://www.kaggle.com/datasets/nazmul0087/ct-kidney-dataset-normal-cyst-tumor-and-stone/). This project leverages the power of Deep Learning, Machine Learning Operations (MLOps) practices, Data Version Control (DVC), and integrates with DagsHub for collaboration and versioning.
 
 ## Project Overview
 The main goal of this project is to develop a reliable and efficient deep learning model that can accurately classify kidney Tumor and Stone from medical images. This could include, but is not limited to, identifying different stages of cancer, detecting anomalies in X-rays, or diagnosing skin diseases through dermatological imaging.
@@ -34,7 +34,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 - 
 
 ## Contact
-For any inquiries or contributions, please contact [Project Maintainer's Email](mail to:sadhin.aiub.cse@gmail.com).
+For any inquiries or contributions, please contact.
 
 ---
 
