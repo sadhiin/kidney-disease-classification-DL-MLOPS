@@ -18,6 +18,19 @@ The main goal of this project is to develop a reliable and efficient deep learni
 - **MLOps Practices**: Incorporates best practices in machine learning operations to automate workflows, from data preparation to model deployment.
 - **DagsHub Integration**: Facilitates collaboration, data and model versioning, experiment tracking, and more in a user-friendly platform.
 
+## Workflows
+- Update config.yaml
+- Update secrets.yaml [Optional]
+- Update params.yaml
+- Update the entity
+- Update the configuration manager in src config
+- Update the components
+- Update the pipeline
+- Update the main.py
+- Update the dvc.yaml
+- app.py [running the flask app]
+
+
 ## How to Contribute
 1. **Fork the Repository**: Start by forking the project repository on DagsHub.
 2. **Set Up Your Environment**: Follow the setup instructions to prepare your development environment.
