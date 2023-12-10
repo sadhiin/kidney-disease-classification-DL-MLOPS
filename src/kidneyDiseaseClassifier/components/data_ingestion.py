@@ -6,7 +6,8 @@ import gdown
 import subprocess
 import opendatasets as od
 from kidneyDiseaseClassifier import logger
-from kidneyDiseaseClassifier.utils.common import get_size
+from kidneyDiseaseClassifier.constants import *
+from kidneyDiseaseClassifier.utils.common import read_yaml
 from kidneyDiseaseClassifier.entity.config_entity import DataIngestionConfig
 
 
@@ -107,6 +108,7 @@ class DataIngestionKaggle:
             unzip_path = self.config.extracted_dir
             compressed_file = self.get_newly_downloaded_file(self.config.local_data_file)
             os.makedirs(unzip_path, exist_ok=True)
+
             if not os.path.exists(compressed_file):
                 raise FileExistsError(f"{compressed_file} doesn't exists. Make sure file exists")
 

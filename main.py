@@ -8,7 +8,7 @@ STAGE_NAME = "Data Ingestion Stage"
 try:
     logger.info(f">>>>>>>>> At stage {STAGE_NAME} started <<<<<<<<<")
     obj = DataIngestionTrainingPipeline()
-    which_one = input("Inter your choice. Press g/G for Google, k/K, for kaggle")
+    which_one = input("Inter your choice. Press 'g' or 'G' for Google, 'k' or 'K' for kaggle: ")
     if which_one.lower() == 'k':
         logger.info(f"Downloading data from the kaggle")
         obj.main(use_kaggle=True)

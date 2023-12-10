@@ -1,14 +1,13 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+
 @dataclass(frozen=True)
 class DataIngestionConfig:
-    root_dir : Path
+    root_dir: Path
     source_URL: str
     local_data_file: Path
     extracted_dir: Path
-
-
 
 
 @dataclass(frozen=True)
@@ -22,4 +21,3 @@ class PrepareBaseModelConfig:
     params_include_top: bool
     params_weights: str
     params_classes: int
-

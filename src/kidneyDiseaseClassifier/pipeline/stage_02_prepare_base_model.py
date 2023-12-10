@@ -1,5 +1,5 @@
 from kidneyDiseaseClassifier import logger
-from kidneyDiseaseClassifier.config.configuration import PrepareBaseModelConfig
+from kidneyDiseaseClassifier.config.configuration import PretrainModelConfigurationManager
 from kidneyDiseaseClassifier.components.prepare_base_model import PrepareBaseModel
 
 
@@ -12,7 +12,7 @@ class PrepareBaseModelTrainingPipeline:
 
     def main(self):
         try:
-            config = PrepareBaseModelConfig('VGG16')
+            config = PretrainModelConfigurationManager('VGG16')
             prepare_base_model_config = config.get_prepare_base_model_config()
 
             prepare_base_model = PrepareBaseModel(config=prepare_base_model_config)

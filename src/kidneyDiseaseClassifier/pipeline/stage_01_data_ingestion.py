@@ -17,7 +17,7 @@ class DataIngestionTrainingPipeline:
         elif use_kaggle:
             try:
                 config = ConfigurationManager()
-                data_ingestion_config = config.get_data_ingestion_gdrive_config()
+                data_ingestion_config = config.get_data_ingestion_kaggle_config()
                 data_ingestion = DataIngestionKaggle(config=data_ingestion_config)
                 data_ingestion.download_kaggle_data()
                 data_ingestion.extractor()
