@@ -49,6 +49,7 @@ if __name__ == "__main__":
         elif which_one.lower() == 'g':
             logger.info(f"Downloading data from the kaggle")
             obj.main(use_gdrive=True)
+        logger.info(f">>>>>>>>>>>>>>>> stage {STAGE_NAME} completed <<<<<<<<<<<<<<<<<<<\n\nx========================x\n\n")
     except Exception as e:
         logger.exception(e)
         raise e

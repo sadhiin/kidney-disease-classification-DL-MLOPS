@@ -1,5 +1,5 @@
 from kidneyDiseaseClassifier import logger
-from kidneyDiseaseClassifier.config.configuration import PrepareBaseModelConfig
+from kidneyDiseaseClassifier.config.configuration import PretrainModelConfigurationManager
 from kidneyDiseaseClassifier.components.model_training import Training
 
 STAGE_NAME = "Training"
@@ -8,7 +8,7 @@ class ModelTrainingPipeline:
         pass
 
     def main(self):
-        config = PrepareBaseModelConfig(model_name="VGG16")
+        config = PretrainModelConfigurationManager(model_name="VGG16")
         training_config = config.get_training_config()
 
         trainer = Training(config=training_config)
