@@ -30,7 +30,7 @@ try:
 
     prepare_base_model = PrepareBaseModelTrainingPipeline()
     prepare_base_model.run()
-    logger.info(f">>>>>>>>>>>>>>>> stage {STAGE_NAME} completed <<<<<<<<<<<<<<<<<<<")
+    logger.info(f">>>>>>>>>>>>>>>> stage {STAGE_NAME} completed <<<<<<<<<<<<<<<<<<<\n\nx========================x\n\n")
 
 except Exception as e:
     logger.exception(e)

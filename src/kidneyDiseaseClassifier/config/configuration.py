@@ -44,7 +44,8 @@ class PretrainModelConfigurationManager:
     def __init__(self, model_name="VGG16", config_filepath=CONFIG_FILE_PATH, params_file_path=PARAMS_FILE_PATH):
         self.model_name = model_name.upper()
         self.config = read_yaml(config_filepath)
-        self.params = read_yaml(params_file_path)[self.model_name]  # loading params for the specific model
+        # loading params for the specific model
+        self.params = read_yaml(params_file_path)[self.model_name]
         create_directories([self.config.artifacts_root])
 
     def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
@@ -58,7 +59,8 @@ class PretrainModelConfigurationManager:
         prepared_base_model_config = PrepareBaseModelConfig(
             root_dir=Path(base_model_config.root_dir),
             base_model_path=Path(base_model_config.base_model_path),
-            updated_base_model_path=Path(base_model_config.updated_base_model_path),
+            updated_base_model_path=Path(
+                base_model_config.updated_base_model_path),
             params_image_size=self.params.IMAGE_SIZE,
             params_learning_rate=self.params.LEARNING_RATE,
             params_dropout_rate=self.params.DROPOUT_RATE,
@@ -84,7 +86,8 @@ class PretrainModelConfigurationManager:
         training_config = TrainingConfig(
             root_dir=Path(training.root_dir),
             trained_model_path=Path(training.trained_model_path),
-            updated_base_model_path=Path(prepare_base_model.updated_base_model_path),
+            updated_base_model_path=Path(
+                prepare_base_model.updated_base_model_path),
             training_data=Path(training_data),
             params_epochs=params.EPOCHS,
             params_batch_size=params.BATCH_SIZE,
@@ -96,9 +99,9 @@ class PretrainModelConfigurationManager:
 
     def get_evaluation_config(self) -> EvaluationConfig:
         eval_config = EvaluationConfig(
-            path_of_model="artifacts/training/model.h5",
-            training_data="artifacts/data_ingestion/kaggle/data/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone",
-            mlflow_uri="https://dagshub.com/sadhiin/kidney-disease-classification-DL-MLOPS.mlflow",
+            path_of_model= self.config.model_training.trained_model_path,
+            training_data= "artifacts/data_ingestion/kaggle/data/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone",
+            mlflow_uri= "https://dagshub.com/sadhiin/kidney-disease-classification-DL-MLOPS.mlflow",
             all_params=self.params,
             params_image_size=self.params.IMAGE_SIZE,
             params_batch_size=self.params.BATCH_SIZE
