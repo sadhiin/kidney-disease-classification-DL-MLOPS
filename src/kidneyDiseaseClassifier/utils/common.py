@@ -82,7 +82,7 @@ def save_json(path: Path, data: dict):
     """
     try:
         with open(path, "w") as f:
-            json.dumps(data, f, indent=4)
+            json.dump(data, f, indent=4)
         logger.info(f"Json file saved at: {path}")
     except Exception as e:
         logger.error(e)
