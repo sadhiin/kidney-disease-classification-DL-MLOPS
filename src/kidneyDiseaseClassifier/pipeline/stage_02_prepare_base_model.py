@@ -10,7 +10,7 @@ class PrepareBaseModelTrainingPipeline:
     def __init__(self):
         pass
 
-    def main(self):
+    def run(self):
         try:
             config = PretrainModelConfigurationManager('VGG16')
             prepare_base_model_config = config.get_prepare_base_model_config()
@@ -28,7 +28,7 @@ if __name__ == "__main__":
         logger.info(f"*******************************************")
         logger.info(f">>>>>>>>>>>>>>> stage {STAGE_NAME} <<<<<<<<<<<<<<<")
         obj = PrepareBaseModelTrainingPipeline()
-        obj.main()
+        obj.run()
         logger.info(f">>>>>>>>>>>>>>>> stage {STAGE_NAME} completed <<<<<<<<<<<<<<<<<<<\n\nx========================x\n\n")
     except Exception as e:
         logger.exception(e)

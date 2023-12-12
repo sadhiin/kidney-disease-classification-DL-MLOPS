@@ -9,7 +9,7 @@ class DataIngestionTrainingPipeline:
     def __init__(self):
         pass
 
-    def main(self, use_gdrive=False, use_kaggle=False):
+    def run(self, use_gdrive=False, use_kaggle=False):
 
         if use_gdrive and use_kaggle:
             raise ValueError("Use only on ata time")
@@ -45,10 +45,10 @@ if __name__ == "__main__":
         which_one = input("Inter your choice. Press g/G for Google, k/K, for kaggle")
         if which_one.lower() == 'k':
             logger.info(f"Downloading data from the kaggle")
-            obj.main(use_kaggle=True)
+            obj.run(use_kaggle=True)
         elif which_one.lower() == 'g':
             logger.info(f"Downloading data from the kaggle")
-            obj.main(use_gdrive=True)
+            obj.run(use_gdrive=True)
         logger.info(f">>>>>>>>>>>>>>>> stage {STAGE_NAME} completed <<<<<<<<<<<<<<<<<<<\n\nx========================x\n\n")
     except Exception as e:
         logger.exception(e)

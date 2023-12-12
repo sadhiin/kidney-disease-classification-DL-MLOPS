@@ -7,7 +7,7 @@ class ModelTrainingPipeline:
     def __init__(self):
         pass
 
-    def main(self):
+    def run(self):
         config = PretrainModelConfigurationManager(model_name="VGG16")
         training_config = config.get_training_config()
 
@@ -23,7 +23,7 @@ if __name__ == "__main__":
         logger.info("#####################################")
         logger.info(f">>>>>>>>>>>>>>>>> stage {STAGE_NAME} started <<<<<<<<<<<<<<<<<<<")
         obj = ModelTrainingPipeline()
-        obj.main()
+        obj.run()
         logger.info(f">>>>>>>>>>>>>>>> stage {STAGE_NAME} completed <<<<<<<<<<<<<<<<<<<\n\nx========================x\n\n")
     except Exception as e:
         logger.exception(e)
