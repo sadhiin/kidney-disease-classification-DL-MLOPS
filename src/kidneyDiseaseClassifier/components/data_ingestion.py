@@ -25,7 +25,8 @@ class DataIngestionGoogle:
             dataset_url = self.config.source_URL
             zip_download_dir = self.config.local_data_file
             os.makedirs("artifacts/data_ingestion/gdrive", exist_ok=True)
-            logger.info(f"Downloading data from the {dataset_url} into {zip_download_dir} location")
+            logger.info(
+                f"Downloading data from the {dataset_url} into {zip_download_dir} location")
             file_id = dataset_url.split('/')[-2]
             prefix = "https://drive.google.com/uc?/export=download&id="
             # gdown.download(prefix+file_id,zip_download_dir)
@@ -61,14 +62,16 @@ class DataIngestionKaggle:
             dataset_url = self.config.source_URL
             zip_download_dir = self.config.local_data_file
             os.makedirs("artifacts/data_ingestion/kaggle", exist_ok=True)
-            logger.info(f"Downloading data from the {dataset_url} into {zip_download_dir} location")
+            logger.info(
+                f"Downloading data from the {dataset_url} into {zip_download_dir} location")
 
             kaggle_api = read_yaml(KAGGLE_SECRET_FILE_PATH)
 
             os.environ["KAGGLE_USERNAME"] = kaggle_api.kaggle_username
             os.environ["KAGGLE_KEY"] = kaggle_api.kaggle_api_key
 
-            command = f"kaggle datasets download {dataset_url.split('/datasets/')[-1]} -p {zip_download_dir} --unzip"
+            # command = f"kaggle datasets download {dataset_url.split('/datasets/')[-1]} -p {zip_download_dir} --unzip"
+            command = f"kaggle datasets download {dataset_url.split('/datasets/')[-1]} -p {zip_download_dir}"
 
             subprocess.run(command.split())
 
@@ -84,10 +87,12 @@ class DataIngestionKaggle:
         files = os.listdir(directory)
 
         # Filter out directories (if any)
-        files = [file for file in files if os.path.isfile(os.path.join(directory, file))]
+        files = [file for file in files if os.path.isfile(
+            os.path.join(directory, file))]
 
         # Sort files by modification time in descending order
-        files.sort(key=lambda x: os.path.getmtime(os.path.join(directory, x)), reverse=True)
+        files.sort(key=lambda x: os.path.getmtime(
+            os.path.join(directory, x)), reverse=True)
 
         # Check if there are any files in the directory
         if not files:
@@ -104,31 +109,51 @@ class DataIngestionKaggle:
         :return: None
         """
         try:
-
             unzip_path = self.config.extracted_dir
             compressed_file = self.get_newly_downloaded_file(self.config.local_data_file)
+
             os.makedirs(unzip_path, exist_ok=True)
 
             if not os.path.exists(compressed_file):
-                raise FileExistsError(f"{compressed_file} doesn't exists. Make sure file exists")
+                logger.info(f"{compressed_file} file doesnot exists!")
+                raise FileExistsError(
+                    f"{compressed_file} doesn't exist. Make sure the file exists")
 
-            logger.info(f"{compressed_file} file extraction is started!")
+
 
             file_extension = os.path.splitext(compressed_file)[1].lower()
+            top_level_folder = os.path.splitext(compressed_file)[0]
+            logger.info(f"top_level_folder ==========> {top_level_folder}")
+
             # Handle zip files
             if file_extension == ".zip":
                 with zipfile.ZipFile(compressed_file, 'r') as zip_ref:
                     zip_ref.extractall(unzip_path)
-                logger.info(f"Successfully extract the file at {compressed_file}")
-                # Delete the compressed file after extraction
-                os.remove(compressed_file)
+                logger.info(
+                    f"Successfully extract the file at {compressed_file}")
 
             elif file_extension in (".tar", ".gz", ".bz2"):
                 with tarfile.open(compressed_file, "r") as tar_ref:
                     tar_ref.extractall(os.path.dirname(compressed_file))
-                logger.info(f"Successfully extract the file at {compressed_file}")
+                logger.info(
+                    f"Successfully extract the file at {compressed_file}")
+
+            if os.path.exists(top_level_folder):
+                # Move the contents of the top-level folder to the extraction directory
+                for root, dirs, files in os.walk(top_level_folder):
+                    for file in files:
+                        src_path = os.path.join(root, file)
+                        rel_path = os.path.relpath(src_path, top_level_folder)
+                        target_path = os.path.join(unzip_path, rel_path)
+                        os.makedirs(os.path.dirname(
+                            target_path), exist_ok=True)
+                        shutil.move(src_path, target_path)
+
+                # Remove the top-level folder
+                shutil.rmtree(top_level_folder)
 
                 # Delete the compressed file after extraction
                 os.remove(compressed_file)
+
         except Exception as e:
             raise e

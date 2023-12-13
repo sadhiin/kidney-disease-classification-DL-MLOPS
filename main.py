@@ -5,22 +5,22 @@ from kidneyDiseaseClassifier.pipeline.stage_03_model_training import ModelTraini
 from kidneyDiseaseClassifier.pipeline.stage_04_model_evaluation import EvaluationPipeline
 
 
-# STAGE_NAME = "Data Ingestion Stage"
-#
-# try:
-#     logger.info(f">>>>>>>>> At stage {STAGE_NAME} started <<<<<<<<<")
-#     obj = DataIngestionTrainingPipeline()
-#     which_one = input("Inter your choice. Press 'g' or 'G' for Google, 'k' or 'K' for kaggle: ")
-#     if which_one.lower() == 'k':
-#         logger.info(f"Downloading data from the kaggle")
-#         obj.run(use_kaggle=True)
-#     elif which_one.lower() == 'g':
-#         logger.info(f"Downloading data from the kaggle")
-#         obj.run(use_gdrive=True)
-# except Exception as e:
-#     logger.exception(e)
-#     raise e
-#
+STAGE_NAME = "Data Ingestion Stage"
+
+try:
+    logger.info(f">>>>>>>>> At stage {STAGE_NAME} started <<<<<<<<<")
+    obj = DataIngestionTrainingPipeline()
+    which_one = input("Inter your choice. Press 'g' or 'G' for Google, 'k' or 'K' for kaggle: ")
+    if which_one.lower() == 'k':
+        logger.info(f"Downloading data from the kaggle")
+        obj.run(use_kaggle=True)
+    elif which_one.lower() == 'g':
+        logger.info(f"Downloading data from the kaggle")
+        obj.run(use_gdrive=True)
+except Exception as e:
+    logger.exception(e)
+    raise e
+
 
 STAGE_NAME = "Prepare base model"
 

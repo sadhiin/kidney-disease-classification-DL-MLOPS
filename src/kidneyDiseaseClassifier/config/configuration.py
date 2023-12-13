@@ -1,8 +1,7 @@
 import os
 from kidneyDiseaseClassifier.constants import *
 from kidneyDiseaseClassifier.utils.common import read_yaml, create_directories
-from kidneyDiseaseClassifier.entity.config_entity import DataIngestionConfig, \
-    PrepareBaseModelConfig, TrainingConfig, EvaluationConfig
+from kidneyDiseaseClassifier.entity.config_entity import DataIngestionConfig,PrepareBaseModelConfig, TrainingConfig, EvaluationConfig
 
 
 class ConfigurationManager:
@@ -76,8 +75,9 @@ class PretrainModelConfigurationManager:
         prepare_base_model = self.config.prepare_base_model
         params = self.params
 
-        training_data = os.path.join(self.config.data_ingestion_kaggle.local_data_file,
-                                     "CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone")
+        training_data = os.path.join(self.config.data_ingestion_kaggle.extracted_dir,
+                                     "CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone\CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone")
+
         create_directories([Path(training.root_dir)])
 
         # logger.info(f"training data path: {training_data}")
@@ -99,9 +99,9 @@ class PretrainModelConfigurationManager:
 
     def get_evaluation_config(self) -> EvaluationConfig:
         eval_config = EvaluationConfig(
-            path_of_model= self.config.model_training.trained_model_path,
-            training_data= "artifacts/data_ingestion/kaggle/data/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone",
-            mlflow_uri= "https://dagshub.com/sadhiin/kidney-disease-classification-DL-MLOPS.mlflow",
+            path_of_model=self.config.model_training.trained_model_path,
+            training_data= "artifacts/data_ingestion/kaggle/extraction/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone",
+            mlflow_uri="https://dagshub.com/sadhiin/kidney-disease-classification-DL-MLOPS.mlflow",
             all_params=self.params,
             params_image_size=self.params.IMAGE_SIZE,
             params_batch_size=self.params.BATCH_SIZE

@@ -1,0 +1,67 @@
+stages:
+  data_ingestion:
+    cmd: python src/kidneyDiseaseClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/kidneyDiseaseClassifier/pipeline/stage_01_data_ingestion.py
+      - src/kidneyDiseaseClassifier/components/data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/
+
+  prepare_base_model:
+    cmd: python src/kidneyDiseaseClassifier/pipeline/stage_02_prepare_base_model.py
+    deps:
+      - src/kidneyDiseaseClassifier/pipeline/stage_02_prepare_base_model.py
+      - src/kidneyDiseaseClassifier/components/prepare_base_model.py
+      - config/config.yaml
+      - params.yaml
+    params:
+      - VGG16.AUGMENTATION
+      - VGG16.IMAGE_SIZE
+      - VGG16.BATCH_SIZE
+      - VGG16.INCLUDE_TOP
+      - VGG16.EPOCHS
+      - VGG16.CLASSES
+      - VGG16.WEIGHTS
+      - VGG16.LEARNING_RATE
+      - VGG16.DROPOUT_RATE
+    outs:
+      - artifacts/base_model/
+
+  train_base_model:
+    cmd: python src/kidneyDiseaseClassifier/pipeline/stage_03_model_training.py
+    deps:
+      - src/kidneyDiseaseClassifier/pipeline/stage_03_model_training.py
+      - src/kidneyDiseaseClassifier/components/model_training.py
+      - artifacts/base_model/
+      - artifacts/data_ingestion/
+      - config/config.yaml
+      - params.yaml
+    params:
+      - VGG16.IMAGE_SIZE
+      - VGG16.BATCH_SIZE
+      - VGG16.EPOCHS
+      - VGG16.AUGMENTATION
+      - VGG16.LEARNING_RATE
+      - VGG16.INCLUDE_TOP
+      - VGG16.WEIGHTS
+      - VGG16.CLASSES
+    outs:
+      - artifacts/training/trained_model.keras
+
+
+  evaluation:
+    cmd: python src/kidneyDiseaseClassifier/pipeline/stage_04_model_evaluation.py
+    deps:
+      - src/kidneyDiseaseClassifier/pipeline/stage_04_model_evaluation.py
+      - src/kidneyDiseaseClassifier/components/model_evaluation.py
+      - artifacts/training/trained_model.keras
+      - artifacts/data_ingestion/
+      - config/config.yaml
+      - params.yaml
+    params:
+      - VGG16.IMAGE_SIZE
+      - VGG16.BATCH_SIZE
+    metrics:
+    - scores.json:
+        cache: false

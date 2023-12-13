@@ -10,7 +10,7 @@ data_ingestion_kaggle:
   root_dir: artifacts/data_ingestion/kaggle
   source_URL: https://www.kaggle.com/datasets/nazmul0087/ct-kidney-dataset-normal-cyst-tumor-and-stone/
   local_data_file: artifacts/data_ingestion/kaggle/data
-  extracted_dir: artifacts/data_ingestion/kaggle/extraction
+  extracted_dir: artifacts/data_ingestion/kaggle/extraction/
 
 
 prepare_base_model:

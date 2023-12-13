@@ -50,7 +50,9 @@ class PrepareBaseModel:
         x = tf.keras.layers.GlobalAveragePooling2D(name="avg_pool")(model.output)
         x = tf.keras.layers.BatchNormalization()(x)
         x = tf.keras.layers.Dropout(dropout_rate, name="top_dropout")(x)
-
+        x = tf.keras.layers.Dense(256)(x)
+        x = tf.keras.layers.Dense(128)(x)
+        
         prediction = tf.keras.layers.Dense(
             units=classes,
             activation='softmax',
