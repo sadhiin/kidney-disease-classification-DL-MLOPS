@@ -1,13 +1,173 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kidney Disease Classification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        #uploadForm {
+            margin-bottom: 20px;
+        }
+
+        #imagePreview {
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        #progressBar {
+            width: 0%;
+            height: 20px;
+            background-color: green;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+        }
+
+        #predictionResult {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            display: none;
+            /* Initially hidden */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
+
 <body>
-<h1>Hello world</h1>
+    <h1>Upload an Image for Classification</h1>
+
+    <form id="uploadForm" enctype="multipart/form-data" method="post">
+        <input type="file" name="image" accept="image/*" required onchange="previewImage(event)">
+        <input type="submit" value="Upload">
+    </form>
+
+    <img id="imagePreview" style="display:none;" />
+
+    <div id="progressContainer" style="display:none;">
+        <div>Uploading...</div>
+        <div id="progressBar"></div>
+    </div>
+    <br><br>
+    <h2>Prediction</h2>
+    <pre id="predictionResult"></pre>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('imagePreview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var formData = new FormData();
+            formData.append('image', document.querySelector('input[type="file"]').files[0]);
+
+            var progressBar = document.getElementById('progressBar');
+            var progressContainer = document.getElementById('progressContainer');
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+
+            // Show the loading spinner
+            var loader = document.getElementById('loader');
+            loader.style.display = 'inline-block';
+
+            fetch('/predict', {
+                method: 'POST',
+                body: JSON.stringify({ image: '' }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => {
+                    progressBar.style.width = '100%';
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('predictionResult').textContent = JSON.stringify(data);
+                    setTimeout(() => {
+                        progressContainer.style.display = 'none';
+                        // Hide the loading spinner after response is received
+                        loader.style.display = 'none';
+                    }, 10 * 1000); // Hide progress bar after 10 seconds
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    progressContainer.style.display = 'none';
+                    // Hide the loading spinner in case of an error
+                    loader.style.display = 'none';
+                });
+        });
+
+        // Function to convert image to base64 and update the JSON request
+        function convertImageToBase64() {
+            var selectedFile = document.querySelector('input[type="file"]').files[0];
+            if (selectedFile) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var base64String = reader.result.split(',')[1]; // Get the base64 string (remove data:image/jpeg;base64,)
+                    var formData = new FormData(document.getElementById('uploadForm'));
+                    formData.set('image', base64String); // Set the image field with base64 string
+                    // Send the updated JSON request with the base64 string to the backend
+                    fetch('/predict', {
+                        method: 'POST',
+                        body: JSON.stringify({ image: base64String }), // Updated JSON request with base64 image
+                        headers: {
+                            'Content-Type': 'application/json', // Set the content type to JSON
+                        },
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('predictionResult').textContent = JSON.stringify(data, null, 2);
+                            setTimeout(() => progressContainer.style.display = 'none', 10 * 1000); // Hide progress bar after 10 seconds
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            progressContainer.style.display = 'none';
+                        });
+                };
+                reader.readAsDataURL(selectedFile); // Read the selected image and trigger onload
+            }
+        }
+
+        // Add a button to trigger image conversion and upload
+        var uploadButton = document.createElement('button');
+        uploadButton.textContent = 'Upload and Predict';
+        uploadButton.addEventListener('click', convertImageToBase64);
+        document.getElementById('uploadForm').appendChild(uploadButton);
+    </script>
+    <!-- Loading spinner -->
+    <div class="loader" id="loader"></div>
 </body>
+
 </html>

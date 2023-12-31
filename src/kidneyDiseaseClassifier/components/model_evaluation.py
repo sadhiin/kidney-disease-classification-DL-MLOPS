@@ -30,6 +30,7 @@ class Evaluation:
         self.valid_generator = valid_data_generator.flow_from_directory(
             directory=self.config.training_data,
             subset='validation',
+            seed=324893,
             shuffle=False,
             **dataflow_kwargs
         )
@@ -45,6 +46,7 @@ class Evaluation:
     def evaluation(self):
         self.model = self.load_model(self.config.path_of_model)
         self._valid_generator()
+        print(self.valid_generator.class_names)
         self.score = self.model.evaluate(self.valid_generator)
         self.save_score()
 
